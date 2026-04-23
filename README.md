@@ -1,85 +1,196 @@
-# Trust & Safety Case Management Dashboard
+# 🛡️ Trust & Safety Case Management Dashboard
 
-A full-stack MERN application simulating real-world Trust & Safety workflows including case triage, escalation, analyst assignment, and risk prioritization.
+A full-stack simulation of real-world **Trust & Safety operations systems**, designed to demonstrate how platforms triage, investigate, and resolve high-risk content at scale.
 
-> **Note:** All cases, users, and content are fictional and used for portfolio demonstration purposes only.
+> ⚠️ **Disclaimer:** All cases, users, and content in this application are fictional and created for portfolio demonstration purposes only.
 
-## Features
+---
 
-- **Case Triage** — Create, filter, and prioritize incoming cases by status, risk level, and category
-- **Risk Analysis** — Tag cases with low/medium/high risk and surface high-risk items in the dashboard summary
-- **Escalation Workflows** — One-click escalation promotes a case to `escalated` status with high priority
-- **Real-time Stats** — Dashboard counters for total cases, high-risk, pending, resolved, and today's activity
-- **Filtering** — Filter by status, risk level, category, or assigned analyst
+## 🎯 Why This Project Exists
 
-## Tech Stack
+Most CRUD apps show technical ability.
+This project demonstrates **domain understanding of Trust & Safety workflows**, including:
 
-- **Backend:** Node.js, Express, MongoDB (Mongoose)
-- **Frontend:** React 19, Vite, Tailwind CSS v4
-- **Deployment:** Render (backend) + Vercel (frontend)
+* Case triage and prioritization
+* Risk-based decision making
+* Analyst assignment and ownership
+* Escalation pipelines
+* Operational metrics and reporting
 
-## Local Setup
+This mirrors how real moderation and integrity teams operate at companies like Meta, TikTok, and Google.
 
-### Prerequisites
+---
 
-- Node.js 18+
-- MongoDB (local or [MongoDB Atlas](https://www.mongodb.com/atlas))
+## 🧠 What This Simulates
 
-### 1. Clone the repo
+* 📥 **Incoming case queues** (spam, fraud, abuse, misinformation, etc.)
+* 🔍 **Analyst workflows** (review, investigate, annotate)
+* 🚨 **Escalation paths** for high-risk content
+* 📊 **Operational dashboards** (SLA-style metrics)
+* 👥 **Ownership models** ("assigned to me" filtering)
+
+---
+
+## ✨ Key Features
+
+### 🚦 Case Management
+
+* Track cases through lifecycle:
+  `pending → in-review → escalated → resolved`
+* Add analyst notes for investigation context
+
+### 🔴 Risk-Based Prioritization
+
+* Low / Medium / High risk classification
+* High-risk cases surfaced in dashboard metrics
+
+### ⚡ Escalation Workflow
+
+* One-click escalation
+* Automatically updates status and priority
+
+### 📊 Operational Metrics (T&S-focused)
+
+* Total cases
+* High-risk cases
+* Pending / Resolved
+* **Cases created today**
+* **Cases resolved today**
+
+### 👤 Analyst Workflow Simulation
+
+* “Assigned to me” filter (ownership model)
+* Uneven workload distribution across analysts
+
+### 🎯 Advanced Filtering
+
+* Filter by:
+
+  * Status
+  * Risk level
+  * Category
+  * Assigned analyst
+
+---
+
+## 🛠️ Tech Stack
+
+**Backend**
+
+* Node.js
+* Express
+* MongoDB (Mongoose)
+
+**Frontend**
+
+* React 19
+* Vite
+* Tailwind CSS v4
+
+**Architecture**
+
+* REST API (`/api/cases`)
+* Proxy-based local development (no CORS issues)
+* Monorepo structure (backend + frontend)
+
+---
+
+## ⚡ Quick Start (1 Command)
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/PercyLanda/trust-safety-dashboard.git
 cd trust-safety-dashboard
-```
-
-### 2. Configure environment variables
-
-```bash
-# Backend
-cp backend/.env.example backend/.env
-# Edit backend/.env — set MONGO_URI to your connection string
-
-# Frontend (optional for local dev — proxy handles it)
-cp frontend/.env.example frontend/.env
-```
-
-### 3. Install dependencies
-
-```bash
 npm install
 npm install --prefix backend
 npm install --prefix frontend
-```
-
-### 4. Run locally (with seed data)
-
-```bash
 npm run demo
 ```
 
-This seeds the database and starts both backend (port 3000) and frontend (port 5173) concurrently.
+### What this does:
 
-## Deployment
+* Seeds realistic Trust & Safety cases (75+)
+* Starts backend on **http://localhost:3000**
+* Starts frontend on **http://localhost:5173**
+
+---
+
+## 🧪 API Example
+
+```bash
+GET /api/cases
+```
+
+Example response:
+
+```json
+{
+  "success": true,
+  "data": [...]
+}
+```
+
+---
+
+## 🌍 Live Demo
+
+* **Frontend:** *coming soon*
+* **Backend API:** *coming soon*
+
+---
+
+## 🚀 Deployment
 
 ### Backend → Render
 
-1. Create a new **Web Service** on [Render](https://render.com)
-2. Connect your repo, set **Root Directory** to `backend`
-3. Build command: `npm install`
-4. Start command: `npm start`
-5. Add environment variables:
-   - `MONGO_URI` — your MongoDB Atlas connection string
-   - `CLIENT_URL` — your Vercel frontend URL (e.g. `https://your-app.vercel.app`)
+* Root Directory: `backend`
+* Build Command: `npm install`
+* Start Command: `npm start`
+
+Environment variables:
+
+* `MONGO_URI`
+* `CLIENT_URL`
+
+---
 
 ### Frontend → Vercel
 
-1. Import your repo on [Vercel](https://vercel.com)
-2. Set **Root Directory** to `frontend`
-3. Add environment variable:
-   - `VITE_API_URL` — your Render backend URL (e.g. `https://your-api.onrender.com`)
-4. Deploy — Vercel auto-detects Vite via `vercel.json`
+* Root Directory: `frontend`
 
-## Live Demo
+Environment variables:
 
-- **Frontend:** _coming soon_
-- **Backend API:** _coming soon_
+* `VITE_API_URL`
+
+---
+
+## 📌 What Makes This Different
+
+This is not just a CRUD app.
+
+It demonstrates:
+
+* Trust & Safety domain knowledge
+* Operational thinking (SLA, triage, escalation)
+* Data-driven workflows
+* Realistic system design for moderation platforms
+
+---
+
+## 📣 Status
+
+🚧 Actively improving:
+
+* Live deployment (Render + Vercel)
+* Authentication (analyst roles)
+* Audit logs & case history
+* Advanced reporting dashboards
+
+---
+
+## 👤 Author
+
+**Percy Landa**
+📍 San Francisco Bay Area
+
+* GitHub: https://github.com/PercyLanda
+* LinkedIn: https://www.linkedin.com/in/percylanda/
