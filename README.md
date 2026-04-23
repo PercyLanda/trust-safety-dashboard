@@ -31,6 +31,41 @@ This mirrors how real moderation and integrity teams operate at companies like M
 
 ---
 
+## 📸 Screenshots
+
+### 🧭 Dashboard Overview
+
+![Dashboard Overview](./screenshots/dashboard.png)
+
+> High-level view of case volume, risk distribution, and operational metrics
+
+---
+
+### 🚦 Case Management & Filtering
+
+![Case Management](./screenshots/cases.png)
+
+> Analysts can filter cases by status, risk level, category, and ownership
+
+---
+
+### 🔴 Risk & Escalation Workflow
+
+![Escalation](./screenshots/escalation.png)
+
+> High-risk cases can be escalated with one click, updating priority and status
+
+---
+
+### 📝 Case Details & Notes
+
+![Case Notes](./screenshots/notes.png)
+
+> Analysts add investigation notes to document decisions and context
+
+
+---
+
 ## ✨ Key Features
 
 ### 🚦 Case Management
