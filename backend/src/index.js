@@ -19,25 +19,29 @@ const ALLOWED_ORIGINS = [
 
 app.use(express.json());
 
-// CORS middleware
-app.use((req, res, next) => {
-  const origin = req.headers.origin;
+const cors = require('cors');
 
-  if (ALLOWED_ORIGINS.includes(origin)) {
-    res.setHeader('Access-Control-Allow-Origin', origin);
-  }
+const allowedOrigins = [
+  process.env.CLIENT_URL,
+  'http://localhost:5173',
+  'https://trust-safety-dashboard-2mcpnw9zp-percylandas-projects.vercel.app'
+];
 
-  res.setHeader(
-    'Access-Control-Allow-Methods',
-    'GET,POST,PUT,DELETE,OPTIONS'
-  );
+app.use(cors({
+  origin: function (origin, callback) {
+    // Allow requests like curl/Postman (no origin)
+    if (!origin) return callback(null, true);
 
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    // 🔥 IMPORTANT: handle undefined env safely
+    if (allowedOrigins.filter(Boolean).includes(origin)) {
+      return callback(null, true);
+    }
 
-  if (req.method === 'OPTIONS') return res.sendStatus(204);
-
-  next();
-});
+    console.log('❌ Blocked by CORS:', origin);
+    return callback(new Error('Not allowed by CORS'));
+  },
+  credentials: true
+}));
 
 // API routes
 app.use('/api/cases', require('./routes/cases'));

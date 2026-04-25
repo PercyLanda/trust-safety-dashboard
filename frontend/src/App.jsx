@@ -2,9 +2,13 @@ import { useState, useEffect, useTransition } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 
 // const API = (import.meta.env.VITE_API_URL || '') + '/api/cases';
+// const API = import.meta.env.VITE_API_URL
+//   ? `${import.meta.env.VITE_API_URL}/api/cases`
+//   : 'http://localhost:3000/api/cases';
+
 const API = import.meta.env.VITE_API_URL
   ? `${import.meta.env.VITE_API_URL}/api/cases`
-  : 'http://localhost:3000/api/cases';
+  : 'https://trust-safety-dashboard.onrender.com/api/cases';
 
 const CURRENT_USER = 'analyst_1';
 
