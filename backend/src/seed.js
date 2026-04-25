@@ -1,18 +1,21 @@
+require('dotenv').config();
+
 const mongoose = require('mongoose');
 const Case = require('./models/Case');
 
-const MONGO_URI = 'mongodb://localhost:27017/trust-safety';
+const MONGO_URI = process.env.MONGO_URI;
 
-// Returns a Date between `daysAgoMax` and `daysAgoMin` days in the past
+// ---------- Helpers for realistic timestamps ----------
 function daysAgo(daysAgoMin, daysAgoMax) {
   const ms = (daysAgoMin + Math.random() * (daysAgoMax - daysAgoMin)) * 86400000;
   return new Date(Date.now() - ms);
 }
 
-// updatedAt must be >= createdAt, within a realistic window
 function updatedAfter(createdAt, maxExtraHours = 72) {
   return new Date(createdAt.getTime() + Math.random() * maxExtraHours * 3600000);
 }
+
+// ---------- YOUR FULL DATASET ----------
 
 const cases = [
   // ── PHISHING ──────────────────────────────────────────────────────────────
@@ -470,40 +473,56 @@ const cases = [
   },
 ];
 
-// Assign realistic timestamps spread over last 30 days
-const now = Date.now();
-const seeded = cases.map((c, i) => {
-  // Spread createdAt: high-risk cases skew more recent (last 7 days), others up to 30 days
-  const maxAge = c.riskLevel === 'high' ? 7 : c.riskLevel === 'medium' ? 20 : 30;
-  const minAge = 0.1;
-  const createdAt = daysAgo(minAge, maxAge);
 
-  // updatedAt: resolved/escalated cases updated sooner after creation; pending cases barely touched
-  const extraHours = c.status === 'pending' ? 2 : c.status === 'resolved' ? 48 : 72;
+  // ✅ KEEP ADDING YOUR FULL 75 CASES HERE
+  // (paste the rest of your dataset exactly as you had it)
+
+// ---------- Transform with timestamps ----------
+const seeded = cases.map((c) => {
+  const maxAge =
+    c.riskLevel === 'high' ? 7 :
+    c.riskLevel === 'medium' ? 20 : 30;
+
+  const createdAt = daysAgo(0.1, maxAge);
+
+  const extraHours =
+    c.status === 'pending' ? 2 :
+    c.status === 'resolved' ? 48 : 72;
+
   const updatedAt = updatedAfter(createdAt, extraHours);
 
   return { ...c, createdAt, updatedAt };
 });
 
-(async () => {
+// ---------- SEED FUNCTION ----------
+async function seed() {
   try {
-    console.log('Seeding database…');
+    console.log("👉 USING DB:", MONGO_URI);
+
     await mongoose.connect(MONGO_URI);
+    console.log("✅ Connected to MongoDB");
 
     const existing = await Case.countDocuments();
+
     if (existing > 0 && process.env.SEED_RESET !== 'true') {
-      console.log(`Database already has ${existing} cases. Skipping seed. Set SEED_RESET=true to reseed.`);
+      console.log(`⚠️ Database already has ${existing} cases. Skipping seed.`);
+      console.log("👉 Use SEED_RESET=true to force reseed");
       return;
     }
 
     await Case.deleteMany({});
+    console.log("🧹 Cleared existing cases");
+
     await Case.insertMany(seeded);
-    console.log(`Inserted ${seeded.length} cases`);
-    console.log('Seed complete');
+    console.log(`✅ Inserted ${seeded.length} cases`);
+
   } catch (err) {
-    console.error('Seed failed:', err.message);
+    console.error("❌ Seed failed:", err.message);
     process.exit(1);
   } finally {
     await mongoose.disconnect();
+    console.log("🔌 Disconnected");
   }
-})();
+}
+
+seed();
