@@ -24,16 +24,21 @@ const cors = require('cors');
 const allowedOrigins = [
   process.env.CLIENT_URL,
   'http://localhost:5173',
-  'https://trust-safety-dashboard-2mcpnw9zp-percylandas-projects.vercel.app'
+  'https://trust-safety-dashboard-2mcpnw9zp-percylandas-projects.vercel.app',
 ];
 
 app.use(cors({
   origin: function (origin, callback) {
-    // Allow requests like curl/Postman (no origin)
+    // allow Postman / server-to-server
     if (!origin) return callback(null, true);
 
-    // 🔥 IMPORTANT: handle undefined env safely
-    if (allowedOrigins.filter(Boolean).includes(origin)) {
+    // allow exact matches
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+
+    // allow ANY vercel preview deployment
+    if (origin.endsWith('.vercel.app')) {
       return callback(null, true);
     }
 

@@ -1,33 +1,37 @@
+
+---
+
 # 🛡️ Trust & Safety Case Management Dashboard
 
-A full-stack simulation of real-world **Trust & Safety operations systems**, designed to demonstrate how platforms triage, investigate, and resolve high-risk content at scale.
+A full-stack simulation of real-world **Trust & Safety operations systems**, designed to demonstrate how online platforms detect, triage, investigate, and resolve harmful content at scale.
 
-> ⚠️ **Disclaimer:** All cases, users, and content in this application are fictional and created for portfolio demonstration purposes only.
+> ⚠️ **Disclaimer:** All cases, users, and content in this application are fictional and created strictly for portfolio demonstration purposes.
 
 ---
 
 ## 🎯 Why This Project Exists
 
-Most CRUD apps show technical ability.
-This project demonstrates **domain understanding of Trust & Safety workflows**, including:
+Most CRUD applications demonstrate technical execution.
 
-* Case triage and prioritization
-* Risk-based decision making
-* Analyst assignment and ownership
-* Escalation pipelines
-* Operational metrics and reporting
+This project goes further by showcasing **domain understanding of Trust & Safety and Integrity operations**, including:
 
-This mirrors how real moderation and integrity teams operate at companies like Meta, TikTok, and Google.
+* Case triage and prioritization workflows
+* Risk-based decision making (low / medium / high severity)
+* Analyst assignment and ownership models
+* Escalation pipelines for high-risk content
+* Operational metrics and dashboarding
+
+It reflects how real **Trust & Safety, Integrity, and Risk Operations teams** function at companies such as Meta, TikTok, and Google.
 
 ---
 
 ## 🧠 What This Simulates
 
 * 📥 **Incoming case queues** (spam, fraud, abuse, misinformation, etc.)
-* 🔍 **Analyst workflows** (review, investigate, annotate)
-* 🚨 **Escalation paths** for high-risk content
-* 📊 **Operational dashboards** (SLA-style metrics)
-* 👥 **Ownership models** ("assigned to me" filtering)
+* 🔍 **Analyst review workflows** (investigate, annotate, update status)
+* 🚨 **Escalation systems** for high-risk content
+* 📊 **Operational dashboards** with real-time metrics
+* 👥 **Ownership model** (“assigned to me” filtering)
 
 ---
 
@@ -37,7 +41,7 @@ This mirrors how real moderation and integrity teams operate at companies like M
 
 ![Dashboard Overview](./screenshots/dashboard.png)
 
-> High-level view of case volume, risk distribution, and operational metrics
+High-level view of case volume, risk distribution, and operational KPIs.
 
 ---
 
@@ -45,15 +49,15 @@ This mirrors how real moderation and integrity teams operate at companies like M
 
 ![Case Management](./screenshots/cases.png)
 
-> Analysts can filter cases by status, risk level, category, and ownership
+Filter cases by status, risk level, category, and analyst assignment.
 
 ---
 
-### 🔴 Risk & Escalation Workflow
+### 🔴 Escalation Workflow
 
 ![Escalation](./screenshots/escalation.png)
 
-> High-risk cases can be escalated with one click, updating priority and status
+One-click escalation updates case priority and status in real time.
 
 ---
 
@@ -61,76 +65,75 @@ This mirrors how real moderation and integrity teams operate at companies like M
 
 ![Case Notes](./screenshots/notes.png)
 
-> Analysts add investigation notes to document decisions and context
-
+Analysts document investigation findings and decision context.
 
 ---
 
 ## ✨ Key Features
 
-### 🚦 Case Management
+### 🚦 Case Lifecycle Management
 
-* Track cases through lifecycle:
-  `pending → in-review → escalated → resolved`
-* Add analyst notes for investigation context
+Track cases through structured states:
+
+`pending → in-review → escalated → resolved`
 
 ### 🔴 Risk-Based Prioritization
 
 * Low / Medium / High risk classification
-* High-risk cases surfaced in dashboard metrics
+* High-risk cases surfaced in operational metrics
 
-### ⚡ Escalation Workflow
+### ⚡ Escalation System
 
-* One-click escalation
+* One-click escalation workflow
 * Automatically updates status and priority
 
-### 📊 Operational Metrics (T&S-focused)
+### 📊 Operational Metrics
 
 * Total cases
 * High-risk cases
-* Pending / Resolved
-* **Cases created today**
-* **Cases resolved today**
+* Pending vs resolved
+* Cases created today
+* Cases resolved today
 
 ### 👤 Analyst Workflow Simulation
 
-* “Assigned to me” filter (ownership model)
-* Uneven workload distribution across analysts
+* “Assigned to me” filtering
+* Ownership-based workload distribution
 
 ### 🎯 Advanced Filtering
 
-* Filter by:
+Filter by:
 
-  * Status
-  * Risk level
-  * Category
-  * Assigned analyst
+* Status
+* Risk level
+* Category
+* Assigned analyst
 
 ---
 
 ## 🛠️ Tech Stack
 
-**Backend**
+### Backend
 
 * Node.js
 * Express
 * MongoDB (Mongoose)
 
-**Frontend**
+### Frontend
 
 * React 19
 * Vite
 * Tailwind CSS v4
 
-**Architecture**
+### Architecture
 
 * REST API (`/api/cases`)
-* Proxy-based local development (no CORS issues)
-* Monorepo structure (backend + frontend)
+* Separate frontend/backend services
+* Environment-based deployment (Render + Vercel)
 
 ---
 
-## ⚡ Quick Start (1 Command)
+## ⚡ Quick Start
 
 ```bash
 git clone https://github.com/PercyLanda/trust-safety-dashboard.git
@@ -143,19 +146,19 @@ npm run demo
 
 ### What this does:
 
-* Seeds realistic Trust & Safety cases (75+)
-* Starts backend on **http://localhost:3000**
-* Starts frontend on **http://localhost:5173**
+* Seeds 75+ realistic Trust & Safety cases
+* Starts backend on `http://localhost:3000`
+* Starts frontend on `http://localhost:5173`
 
 ---
 
 ## 🧪 API Example
 
-```bash
+```http
 GET /api/cases
 ```
 
-Example response:
+### Response
 
 ```json
 {
@@ -168,31 +171,30 @@ Example response:
 
 ## 🌍 Live Demo
 
-* **Frontend:** *coming soon*
-* **Backend API:** *coming soon*
+* **Frontend:** [https://trust-safety-dashboard-2mcpnw9zp-percylandas-projects.vercel.app](https://trust-safety-dashboard-2mcpnw9zp-percylandas-projects.vercel.app)
+* **Backend API:** [https://trust-safety-dashboard.onrender.com/api/cases](https://trust-safety-dashboard.onrender.com/api/cases)
 
 ---
 
 ## 🚀 Deployment
 
-### Backend → Render
+### Backend (Render)
 
 * Root Directory: `backend`
-* Build Command: `npm install`
 * Start Command: `npm start`
 
-Environment variables:
+Environment Variables:
 
 * `MONGO_URI`
 * `CLIENT_URL`
 
 ---
 
-### Frontend → Vercel
+### Frontend (Vercel)
 
 * Root Directory: `frontend`
 
-Environment variables:
+Environment Variables:
 
 * `VITE_API_URL`
 
@@ -204,21 +206,21 @@ This is not just a CRUD app.
 
 It demonstrates:
 
-* Trust & Safety domain knowledge
-* Operational thinking (SLA, triage, escalation)
-* Data-driven workflows
-* Realistic system design for moderation platforms
+* Trust & Safety systems thinking
+* Real-world moderation workflows
+* Risk operations modeling
+* Scalable backend + frontend architecture
+* Production deployment (Render + Vercel)
 
 ---
 
-## 📣 Status
+## 📣 Roadmap / Next Improvements
 
-🚧 Actively improving:
-
-* Live deployment (Render + Vercel)
-* Authentication (analyst roles)
-* Audit logs & case history
-* Advanced reporting dashboards
+* Authentication (analyst roles & permissions)
+* Audit logs for case history
+* Advanced analytics dashboard
+* Real-time updates (WebSockets)
+* Role-based access control (admin vs analyst)
 
 ---
 
@@ -227,5 +229,7 @@ It demonstrates:
 **Percy Landa**
 📍 San Francisco Bay Area
 
-* GitHub: https://github.com/PercyLanda
-* LinkedIn: https://www.linkedin.com/in/percylanda/
+* GitHub: [https://github.com/PercyLanda](https://github.com/PercyLanda)
+* LinkedIn: [https://www.linkedin.com/in/percylanda/](https://www.linkedin.com/in/percylanda/)
+
+---
