@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 const app = express();
 
@@ -10,34 +11,24 @@ const MONGO_URI =
 
 const PORT = process.env.PORT || 3000;
 
-const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:5173';
-
-const ALLOWED_ORIGINS = [
-  'http://localhost:5173',
-  CLIENT_URL,
-].filter(Boolean);
-
 app.use(express.json());
 
-const cors = require('cors');
-
+// ✅ Clean allowed origins
 const allowedOrigins = [
   process.env.CLIENT_URL,
   'http://localhost:5173',
   'https://trust-safety-dashboard-2mcpnw9zp-percylandas-projects.vercel.app',
-];
+].filter(Boolean);
 
+// ✅ Single CORS middleware (this is all you need)
 app.use(cors({
   origin: function (origin, callback) {
-    // allow Postman / server-to-server
     if (!origin) return callback(null, true);
 
-    // allow exact matches
     if (allowedOrigins.includes(origin)) {
       return callback(null, true);
     }
 
-    // allow ANY vercel preview deployment
     if (origin.endsWith('.vercel.app')) {
       return callback(null, true);
     }
@@ -51,7 +42,7 @@ app.use(cors({
 // API routes
 app.use('/api/cases', require('./routes/cases'));
 
-// ✅ HEALTH CHECK ROUTE (added)
+// Health check
 app.get('/', (req, res) => {
   res.json({
     status: 'ok',
@@ -59,7 +50,7 @@ app.get('/', (req, res) => {
   });
 });
 
-// Connect to MongoDB and start server
+// DB + server
 mongoose
   .connect(MONGO_URI)
   .then(() => {
